@@ -76,12 +76,20 @@
                                         <li>
                                             <?php
                                                 $pesanan_utama = \App\models\jualbeli\Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
-
-                                                $notif = \App\models\jualbeli\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
+                                                if (!empty($pesanan_utama)) {
+                                                    
+                                                    $notif = \App\models\jualbeli\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
+                                                }
                                             ?>
-                                            <a href="check-out" class="cart"><i class="ion-bag"></i> Cart <span>({{$notif}})</span></a>
+                                            <a href="check-out" class="cart">
+                                                <i class="ion-bag"></i> Cart 
+                                                @if (!empty($notif))
+                                                <span>({{$notif}})</span>
+                                                    
+                                                @endif
+                                            </a>
                                             
-                                            <ul class="mini-cart">
+                                            {{-- <ul class="mini-cart">
                                                 <li>
                                                     <div class="cart-img f-left">
                                                         <a href="product-details.html">
@@ -115,7 +123,7 @@
                                                         <a class="os-btn os-btn-black" href="checkout.html">Checkout</a>
                                                     </div>
                                                 </li>
-                                            </ul>
+                                            </ul> --}}
                                         </li>
                                         <li> <a href="javascript:void(0);"><i class="far fa-bars"></i></a>
                                             <ul class="extra-info">
@@ -125,7 +133,7 @@
                                                             <h5>{{auth()->user()->name}}</h5>
                                                         </div>
                                                         <ul>
-                                                            <li><a href="#">Profile</a></li>
+                                                            <li><a href="{{url('profile')}}">Profile</a></li>
                                                             <li><a href="/logout">Log Out</a></li>
                                                         </ul>
                                                     </div>

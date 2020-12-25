@@ -29,8 +29,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nama Depan</th>
-                                        <th>Nama Belakang</th>
+                                        <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Agama</th>
                                         <th>No Telepon</th>
@@ -43,17 +42,27 @@
                                     @foreach ($data_control as $control)
                                     {{-- @if ($control->user->role == 'pembeli') --}}
                                     <tr>
-                                        <td>{{$control->nama_depan}}</td>
-                                        <td>{{$control->nama_belakang}}</td>
+                                        <td>{{$control->nama_depan}} {{$control->nama_belakang}}</td>
                                         <td>{{$control->jenis_kelamin}}</td>
                                         <td>{{$control->agama}}</td>
                                         <td>{{$control->nohp}}</td>
-                                        <td>{{$control->user->email}}</td>
-                                        <td>{{$control->alamat}}</td>
-                                        <td >
-                                            <a href="/control/{{$control->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="/control/{{$control->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin')">Delete</a>
+                                        <td>
+                                            @if ($control->user->id == auth()->user()->id)
+                                            <strong>
+                                                <a href="/control/{{$control->id}}/change">{{$control->user->email}}</a>
+                                            </strong>
+                                            @else
+                                            {{$control->user->email}}
+                                            @endif
+
                                         </td>
+                                        <td>{{$control->alamat}}</td>
+                                        @if ($control->user->id == auth()->user()->id)
+                                        <td >
+                                            <a href="/control/{{$control->id}}/edit" class="btn btn-warning btn-xs lnr lnr-pencil"></a>
+                                            <a href="/control/{{$control->id}}/delete" class="btn btn-danger btn-xs lnr lnr-trash" onclick="return confirm('Yakin')"></a>
+                                        </td>
+                                        @endif
                                     </tr>
                                     {{-- @endif --}}
                                     @endforeach
@@ -90,6 +99,10 @@
                 <label for="">Nama Belakang</label>
                 <input name="nama_belakang" type="text" class="form-control" id="exampleInputEmail1" 
                 aria-describedby="emailHelp" value="{{old('nama_belakang')}}">
+            </div>
+            <div class="form-group" >
+                <label for="">Tanggal Lahir</label>
+                <input name="tanggal_lahir" type="text" class="form-control" placeholder="13 Desember 1999" value="{{old('tanggal_lahir')}}">
             </div>
 
             <div class="form-group{{$errors->has('email') ? ' has-error' : ''}}" >

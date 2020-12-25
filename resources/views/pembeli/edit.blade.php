@@ -26,8 +26,8 @@
                                     </div>
 
                                     <div class="form-group" >
-                                        <input required name="email" type="email" class="form-control" id="exampleInputEmail1" 
-                                        aria-describedby="emailHelp" placeholder="Email" value="{{$pembeli->user->email}}">
+                                        <label for="">Tanggal Lahir</label>
+                                        <input name="tanggal_lahir" type="text" class="form-control" placeholder="13 Desember 1999" value="{{$pembeli->tanggal_lahir}}">
                                     </div>
                         
                                     {{-- <div class="form-group{{$errors->has('role') ? ' has-error' : ''}}" >
@@ -46,11 +46,11 @@
                                         </select>
                                     </div> --}}
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="">Password</label>
                                         <input name="password" type="password" class="form-control" 
                                             id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password" value="{{$pembeli->user->password}}" required>
-                                    </div>
+                                    </div> --}}
                         
                                     <div class="form-group" >
                                           <label for="exampleFormControlSelect1">Jenis Kelamin</label>
@@ -101,4 +101,6 @@
             </div>
         </div>
     </div>
+    <body>
+
 @endsection

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Control extends Model
 {
     protected $table = 'control';
-    protected $fillable = ['nama_depan','nama_belakang','jenis_kelamin','alamat','agama','avatar','user_id','nohp'];
+    protected $fillable = ['nama_depan','nama_belakang','tanggal_lahir','jenis_kelamin','alamat','agama','avatar','user_id','nohp'];
 
     public function getAvatar()
     {
         if(!$this->avatar){
-            return asset ('images/default.png');
+            return asset ('images/profile/control/default.png');
         }
-        return asset('images/'.$this->avatar);
+        return asset('images/profile/control'.$this->avatar);
     }
 
     public function namaLengkap()

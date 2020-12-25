@@ -12,10 +12,5 @@ class EcommerceController extends Controller
     	$posts = Barang::all();
     	return view('ecomerce.index',compact(['posts']));
     }
-
-    public function postBarang()
-    {
-        # code...
-    }
     
 }

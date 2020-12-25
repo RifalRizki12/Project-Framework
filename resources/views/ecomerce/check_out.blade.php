@@ -29,8 +29,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <form action="#">
+                        {{-- <form action="#"> --}}
                             <div class="table-content table-responsive">
+                                @if(!empty($pesanan))
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -38,7 +39,6 @@
                                             <th class="cart-product-name">Barang</th>
                                             <th class="product-price">Harga /Unit</th>
                                             <th class="product-quantity">Quantity</th>
-                                            <th class="product-quantity">+ Quantity</th>
                                             <th class="product-subtotal">Total</th>
                                             <th class="product-remove">Hapus</th>
                                         </tr>
@@ -53,20 +53,49 @@
                                             <td class="product-quantity">
                                                 {{$pesanan_detail->jumlah}}
                                             </td>
-                                            <td class="product-quantity">
-                                                <div class="cart-plus-minus"><input type="text" value="1" /></div>
-                                            </td>
                                             <td class="product-subtotal"><span class="amount">Rp {{ number_format($pesanan_detail->jumlah_harga) }}</span></td>
-                                            <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+                                            <td>
+                                                <form action="{{url('check-out')}}/{{$pesanan_detail->id}}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    {{method_field('DELETE')}}
+                                                    <button type="submit"><i class="fa fa-trash" onclick="return confirm('Anda Yakin Ingin Menghapus Data')"></i></button>
+                                                </form>
+                                                {{-- <a type="submit" href="{{url('check-out')}}"><i class="fa fa-times"></i></a> --}}
+                                            </td>
                                         </tr>
 
                                         @endforeach
                                         
                                     </tbody>
                                 </table>
+
+                                @else
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">Gambar</th>
+                                            <th class="cart-product-name">Barang</th>
+                                            <th class="product-price">Harga /Unit</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-remove">Hapus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Kosong</td>
+                                            <td>kosong</td>
+                                            <td>kosong</td>
+                                            <td>kosong</td>
+                                            <td>kosong</td>
+                                            <td>kosong</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @endif
                             </div>
-                            <div class="row">
-                                <div class="col-12">
+                            {{-- <div class="row">
+                                <div class="col-10">
                                     <div class="coupon-all">
                                         <div class="coupon">
                                             <input id="coupon_code" class="input-text" name="coupon_code" value=""
@@ -74,25 +103,25 @@
                                             <button class="os-btn os-btn-black" name="apply_coupon" type="submit">Apply
                                                 coupon</button>
                                         </div>
-                                        <div class="coupon2">
-                                            <button class="os-btn os-btn-black" name="update_cart" type="submit">Update cart</button>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
                                     <div class="cart-page-total">
+                                        @if (!empty($pesanan_detail))
                                         <h2>Cart totals</h2>
+                                            
+                                        <p>Tanggal Pesan : {{$pesanan->tanggal}}</p>
                                         <ul class="mb-20">
-                                            <li>Subtotal <span>$250.00</span></li>
-                                            <li>Total <span>$250.00</span></li>
+                                            <li>Total <span>Rp {{ number_format($pesanan->jumlah_harga) }}</span></li>
                                         </ul>
-                                        <a class="os-btn" href="checkout.html">Proceed to checkout</a>
+                                        <a class="os-btn" href="{{url('konfirmasi-check-out')}}" onclick="return confirm('Anda Yakin Ingin check out')">Proceed to checkout</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>

@@ -29,13 +29,12 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nama Depan</th>
-                                        <th>Nama Belakang</th>
+                                        <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Agama</th>
+                                        <th>Email</th>
                                         <th>No Hp</th>
                                         <th>Alamat</th>
-                                        <th>Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,16 +42,18 @@
                                     @foreach ($data_pembeli as $pembeli)
                                     {{-- @if ($pembeli->user->role == 'pembeli') --}}
                                     <tr>
-                                        <td>{{$pembeli->nama_depan}}</td>
-                                        <td>{{$pembeli->nama_belakang}}</td>
+                                        <td><a href="/pembeli/{{$pembeli->id}}/profile">{{$pembeli->nama_depan}} {{$pembeli->nama_belakang}}</a></td>
                                         <td>{{$pembeli->jenis_kelamin}}</td>
                                         <td>{{$pembeli->agama}}</td>
+                                        <td><strong>
+                                            <a href="/pembeli/{{$pembeli->id}}/change">{{$pembeli->user->email}}</a>
+                                            </strong>
+                                        </td>
                                         <td>{{$pembeli->nohp}}</td>
                                         <td>{{$pembeli->alamat}}</td>
-                                        <td>{{$pembeli->user->role}}</td>
                                         <td >
-                                            <a href="/pembeli/{{$pembeli->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="/pembeli/{{$pembeli->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin')">Delete</a>
+                                            <a href="/pembeli/{{$pembeli->id}}/edit" class="btn btn-warning btn-xs lnr lnr-pencil"></a>
+                                            <a href="/pembeli/{{$pembeli->id}}/delete" class="btn btn-danger btn-xs lnr lnr-trash" onclick="return confirm('Yakin')"></a>
                                         </td>
                                     </tr>
                                     {{-- @endif --}}
@@ -91,10 +92,15 @@
                 <input name="nama_belakang" type="text" class="form-control" id="exampleInputEmail1" 
                 aria-describedby="emailHelp" value="{{old('nama_belakang')}}">
             </div>
+            <div class="form-group" >
+                <label for="">Tanggal Lahir</label>
+                <input name="tanggal_lahir" type="text" class="form-control" placeholder="13 Desember 1999" value="{{old('tanggal_lahir')}}">
+            </div>
 
             <div class="form-group{{$errors->has('email') ? ' has-error' : ''}}" >
+                <label for="">Email</label>
                 <input name="email" type="email" class="form-control" id="exampleInputEmail1" 
-                aria-describedby="emailHelp" placeholder="Email" value="{{old('email')}}" required>
+                aria-describedby="emailHelp" value="{{old('email')}}" required>
                     @if($errors->has('email'))
                         <span class="help-block">{{$errors->first('email')}}</span>
                     @endif
@@ -158,5 +164,13 @@
     </div>
     </div>
   </div>
+
+<script>
+    $( function() {
+      $( "#date" ).datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+    } );
+</script>
 
 @endsection

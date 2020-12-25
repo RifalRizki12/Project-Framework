@@ -9,12 +9,14 @@ class ControlController extends Controller
 {
     public function index(Request $request)
     {
+
         if ($request->has('cari')) {
             $data_control = \App\models\Control::where('nama_depan','LIKE','%'.$request->cari.'%')->get();
         }else{
             $data_control = \App\models\Control::all();
         }
-        return view('control.index',['data_control' => $data_control]);
+        return view('control.index',compact(['data_control']));
+        // return view('control.index',['data_control' => $data_control,'control'=>$control]);
     }
 
     public function create(Request $request)
@@ -38,7 +40,7 @@ class ControlController extends Controller
         $request->request->add(['user_id' => $user->id ]);
         $control = \App\models\Control::create($request->all());
         if($request->hasFile('avatar')){
-            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            $request->file('avatar')->move('images/profile/control/',$request->file('avatar')->getClientOriginalName());
             $control->avatar = $request->file('avatar')->getClientOriginalName();
             $control->save();
         }
@@ -76,18 +78,35 @@ class ControlController extends Controller
         // unset($data['email']);
         $control->update($data);
         if($request->hasFile('avatar')){
-            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            $request->file('avatar')->move('images/profile/control/',$request->file('avatar')->getClientOriginalName());
             $pembeli->avatar = $request->file('avatar')->getClientOriginalName();
             $pembeli->save();
         }
         return redirect('/control')->with('sukses','Data berhasil di update');
     }
 
-    public function profile()
+    public function change($id)
     {
-        $control = \App\models\Control::all();
+        $control = \App\models\Control::find($id);
+        return view('/control/change',['control'=>$control]);
+    }
 
-        return view('control.profile',['control' => $control]);
+    public function updatepass(Request $request,$id)
+    {
+        $control = \App\models\Control::find($id);
+        \App\User::find($control->user_id)->update(['email'=>$request->email, 'password'=>bcrypt($request->password)]);
+        $data=$request->all();
+        // unset($data['email']);
+        $control->update($data);
+
+        return redirect('/control')->with('sukses','Email Dan Password Berhasil Diupdate');
+    }
+
+    public function profile($id)
+    {
+        $control = Control::where('id',$id)->first();
+
+        return view('control.profile',compact(['control']));
     }
 
 }

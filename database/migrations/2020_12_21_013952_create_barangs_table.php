@@ -15,7 +15,7 @@ class CreateBarangsTable extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('user_id');
+            $table->bigInteger('user_id')->nullable();
             $table->string('nama_barang');
             $table->integer('harga');
             $table->integer('stok');

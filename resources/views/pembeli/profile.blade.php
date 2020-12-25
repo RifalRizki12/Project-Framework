@@ -14,14 +14,14 @@
 						<div class="profile-header">
 							<div class="overlay"></div>
 							<div class="profile-main">
-								<img src="{{$control->getAvatar()}}" class="img-circle" alt="Avatar" style="max-height: 100px">
-								<h3 class="name">{{$control->nama_depan}} {{$control->nama_belakang}}</h3>
+								<img src="{{$pembeli->getAvatar()}}" class="img-circle" alt="Avatar" style="max-height: 100px">
+								<h3 class="name">{{$pembeli->nama_depan}} {{$pembeli->nama_belakang}}</h3>
 								<span class="online-status status-available">Available</span>
 							</div>
 							<div class="profile-stat">
 								<div class="row">
 									<div class="col-md-100 stat-item">
-                                        No Telphone<span>{{$control->nohp}}</span>
+                                        No Telphone<span>{{$pembeli->nohp}}</span>
 									</div>
 								</div>
 							</div>
@@ -32,11 +32,11 @@
 							<div class="profile-info">
 								<h4 class="heading">Data Diri</h4>
 								<ul class="list-unstyled list-justify">
-									<li>Tanggal lahir <span>{{$control->tanggal_lahir}}</span></li>
-									<li>Jenis Kelamin <span>{{$control->jenis_kelamin}}</span></li>
-									<li>Agama <span>{{$control->agama}}</span></li>
-                                    <li>no Telepon <span>{{$control->nohp}}</span></li>
-                                    <li>email <span>{{$control->user->email}}</span></li>
+									<li>Tanggal lahir <span>{{$pembeli->tanggal_lahir}}</span></li>
+									<li>Jenis Kelamin <span>{{$pembeli->jenis_kelamin}}</span></li>
+									<li>Agama <span>{{$pembeli->agama}}</span></li>
+                                    <li>no Telepon <span>{{$pembeli->nohp}}</span></li>
+                                    <li>email <span>{{$pembeli->user->email}}</span></li>
 								</ul>
 							</div>
 							{{-- <div class="profile-info">
@@ -52,7 +52,7 @@
 									<li><a href="#" class="github-bg"><i class="fa fa-github"></i></a></li>
 								</ul>
 							</div> --}}
-							<div class="text-center"><a href="/control/{{$control->id}}/edit" class="btn btn-warning">Edit Profile</a></div>
+							<div class="text-center"><a href="/pembeli/{{$pembeli->id}}/edit" class="btn btn-warning">Edit Profile</a></div>
 						</div>
 						<!-- END PROFILE DETAIL -->
 					</div>

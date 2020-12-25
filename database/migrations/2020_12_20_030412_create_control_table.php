@@ -15,8 +15,10 @@ class CreateControlTable extends Migration
     {
         Schema::create('control', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->nullable();
             $table->string('nama_depan');
             $table->string('nama_belakang');
+            $table->string('tanggal_lahir')->nullable();
             $table->string('jenis_kelamin');
             $table->string('agama');
             $table->string('nohp')->nullable();

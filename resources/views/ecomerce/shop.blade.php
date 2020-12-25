@@ -95,7 +95,7 @@
 												<h4><a href="/detail/{{$barang->id}}">Stock : {{$barang->stok}}</a></h4>
 											</div>
 											<div class="add-cart p-absolute transition-3">
-												<a href="#">+ Add to Cart</a>
+												<a href="/detail/{{$barang->id}}">+ Add to Cart</a>
 											</div>
 										</div>
 										

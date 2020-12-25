@@ -32,13 +32,18 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function () {
     Route::post('/pembeli/create','PembeliController@create');
     Route::get('/pembeli/{id}/edit','PembeliController@edit');
     Route::post('/pembeli/{id}/update','PembeliController@update');
+    Route::get('/pembeli/{id}/change','PembeliController@change');
+    Route::post('/pembeli/{id}/updatepass','PembeliController@updatepass');
     Route::get('/pembeli/{id}/delete','PembeliController@delete');
+    Route::get('/pembeli/{id}/profile','PembeliController@profile');
     
     Route::get('/control','ControlController@index');
     Route::post('/control/create','ControlController@create');
     Route::get('/control/{id}/delete','ControlController@delete');
     Route::get('/control/{id}/edit','ControlController@edit');
     Route::post('/control/{id}/update','ControlController@update');
+    Route::get('/control/{id}/change','ControlController@change');
+    Route::post('/control/{id}/updatepass','ControlController@updatepass');
 
     Route::group(['prefix' => 'postsBarang'], function() {
         Route::get('/', 'PostBarangController@index');
@@ -47,8 +52,6 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function () {
         Route::get('/{id}/edit','PostBarangController@edit');
         Route::post('/{id}/update','PostBarangController@update');
     });
-
-    Route::get('/profile','ControlController@profile');
     
 
     // Route::get('/postsBarang','PostBarangController@index');
@@ -74,6 +77,11 @@ Route::group(['middleware' => ['auth','checkRole:pembeli']], function () {
     Route::get('/detail/{id}','ShopController@detail');
     Route::post('/detail/{id}','ShopController@pesan');
     Route::get('check-out','ShopController@check_out');
+    Route::delete('check-out/{id}', 'ShopController@delete');
+
+    Route::get('konfirmasi-check-out', 'ShopController@konfirmasi');
+    Route::get('profile','ProfileController@index');
+    
 });
 
 

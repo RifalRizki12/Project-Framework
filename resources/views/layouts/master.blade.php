@@ -55,7 +55,6 @@
     <script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
     <script src="{{asset('frontsite/js/ckeditor.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/decoupled-document/ckeditor.js"></script>
-    
     @yield('footer')
 </body>
 

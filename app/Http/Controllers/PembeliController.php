@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Pembeli;
+use App\models\jualbeli\Pesanan;
+use Auth;
 use App\User;
+use Alert;
 
 class PembeliController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->has('cari')) {
-            $data_pembeli = \App\model\Pembeli::where('nama_depan','LIKE','%'.$request->cari.'%')->get();
+            $data_pembeli = \App\models\Pembeli::where('nama_depan','LIKE','%'.$request->cari.'%')->get();
         }else{
             $data_pembeli = \App\models\Pembeli::all();
         }
@@ -39,7 +42,7 @@ class PembeliController extends Controller
         $request->request->add(['user_id' => $user->id ]);
         $pembeli = \App\models\Pembeli::create($request->all());
         if($request->hasFile('avatar')){
-            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            $request->file('avatar')->move('images/profile/pembeli/',$request->file('avatar')->getClientOriginalName());
             $pembeli->avatar = $request->file('avatar')->getClientOriginalName();
             $pembeli->save();
         }
@@ -62,16 +65,33 @@ class PembeliController extends Controller
         
 
         $pembeli = \App\models\Pembeli::find($id);
-        \App\User::find($pembeli->user_id)->update(['email'=>$request->email, 'password'=>bcrypt($request->password)]);
+        // \App\User::find($pembeli->user_id)->update(['email'=>$request->email, 'password'=>bcrypt($request->password)]);
         $data=$request->all();
         // unset($data['email']);
         $pembeli->update($data);
         if($request->hasFile('avatar')){
-            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            $request->file('avatar')->move('images/profile/pembeli',$request->file('avatar')->getClientOriginalName());
             $pembeli->avatar = $request->file('avatar')->getClientOriginalName();
             $pembeli->save();
         }
         return redirect('/pembeli')->with('sukses','Data berhasil di update');
+    }
+
+    public function change($id)
+    {
+        $pembeli = \App\models\Pembeli::find($id);
+        return view('/pembeli/change',['pembeli'=>$pembeli]);
+    }
+
+    public function updatepass(Request $request,$id)
+    {
+        $pembeli = \App\models\Pembeli::find($id);
+        \App\User::find($pembeli->user_id)->update(['email'=>$request->email, 'password'=>bcrypt($request->password)]);
+        $data=$request->all();
+        // unset($data['email']);
+        $pembeli->update($data);
+
+        return redirect('/pembeli')->with('sukses','Email Dan Password Berhasil Diupdate');
     }
 
     public function delete($id)
@@ -82,5 +102,12 @@ class PembeliController extends Controller
         $pembeli->delete();
         $user->delete();
         return redirect('/pembeli')->with('sukses','data berhasil dihapus');
+    }
+
+    public function profile($id)
+    {
+        $pembeli = Pembeli::where('id',$id)->first();
+
+        return view('pembeli.profile',compact(['pembeli']));
     }
 }
